@@ -3,6 +3,7 @@
     margin: 0;
     box-sizing: border-box;
 }
+
 body {
     width: 100dvw;
     height: 100dvh;
@@ -13,6 +14,7 @@ body {
     /* background: slategray; */
     background: black;
 }
+
 .container {
     width: 600px;
     height: 400px;
@@ -26,19 +28,22 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('./pic01.jpg');/*Obscura*/
+    background-image: url('./pic01.jpg');
+    /*Obscura*/
     background-size: cover;
     filter: brightness(0.4);
     transition: filter 0.2s;
 }
 
 .revealer {
+    z-index: 10;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('pic01.jpg'); /*Clara*/
+    background-image: url('pic01.jpg');
+    /*Clara*/
     background-size: cover;
     background-position: 0 0;
     -webkit-mask-image: radial-gradient(circle 50px at 0 0, black 100%, transparent 100%);
@@ -47,17 +52,28 @@ body {
 
 .secret-spot {
     position: absolute;
-    /* Posiciona el secreto donde quieras que esté en la imagen (e.g., arriba a la derecha) */
     /* top: 50px; */
     top: 50%;
     /* left: 450px; */
     left: 50%;
     width: 80px;
     height: 80px;
-    background: transparent;
+    /* background: transparent; */
     /* background: red; */
     /* filter: brightness(0.4); */
-    z-index: 10;
+    z-index: 5 !important;
+    background-color: rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+}
+
+.secret-spot .secret-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    /* filter: brightness(0.4); */
+    filter: none;
+    transition: filter 0.3s;
 }
 
 .success-message {
@@ -76,4 +92,13 @@ body {
 
 .success-message.visible {
     display: block;
+}
+
+.secret-spot[data-found="true"] .secret-image {
+    /* filter: brightness(1); */
+    filter: none;
+}
+
+.secret-spot[data-found="true"] {
+    background-color: transparent;
 }
