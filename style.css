@@ -15,28 +15,19 @@ body {
     background: black;
 }
 
+#filter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
 .container {
     width: 600px;
     height: 400px;
     position: relative;
     overflow: hidden;
 }
-
-.dark-overlay-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /*Obscura*/
-    background-image: url('./pic01.jpg');
-    z-index: 1;
-    background-size: cover;
-    /* filter: brightness(0.4); */
-    filter: none;
-    transition: filter 0.2s;
-}
-
 .revealer {
     z-index: 10;
     position: absolute;
@@ -45,18 +36,6 @@ body {
     width: 100%;
     height: 100%;
 
-    /*Clara*/
-    /* background-image: url('pic01.jpg'); */
-    background-color: rgba(255, 255, 255, 0.1);
-    background-image: none;
-    /* mix-blend-mode: overlay; */
-    mix-blend-mode: screen; 
-    /* background-size: cover; */
-    /* background-position: 0 0; */
-    /* -webkit-mask-image: radial-gradient(circle 50px at 0 0, black 100%, transparent 100%);
-    mask-image: radial-gradient(circle 50px at 0 0, black 100%, transparent 100%); */
-    -webkit-mask-image: radial-gradient(circle 50px at -100px -100px, black 100%, transparent 100%);
-    mask-image: radial-gradient(circle 50px at -100px -100px, black 100%, transparent 100%);
 }
 
 .secret-spot {
@@ -81,9 +60,6 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
-    /* filter: brightness(0.4); */
-    /* filter: none; */
-    /* transition: filter 0.3s; */
 }
 
 .success-message {
@@ -105,30 +81,11 @@ body {
 }
 
 .secret-spot[data-found="true"] .secret-image {
-    /* filter: brightness(1); */
-    filter: none;
+    filter: brightness(1);
 }
 
 .secret-spot[data-found="true"] {
     background-color: transparent;
+    z-index: 10;
 }
-.global-darkness {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    
-    /* Z-Index: Sobre las imágenes, bajo la lupa */
-    z-index: 5; 
-    
-    /* El color negro total */
-    background-color: black; 
-    
-    /* 🛑 El truco: Haz que este negro se fusione con las capas de abajo */
-    mix-blend-mode: multiply; 
-    
-    /* Mantenemos el opacity bajo para simular la oscuridad 
-       que quieres, pero 1 para negro total */
-    opacity: 1; 
-}
+

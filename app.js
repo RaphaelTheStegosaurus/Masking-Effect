@@ -4,12 +4,6 @@ const secretSpot = document.querySelector(".secret-spot");
 const successMessage = document.querySelector(".success-message");
 const radius = 50;
 let isFound = false;
-/**
- * 💡 Usa getBoundingClientRect() para calcular la posición
- * del cursor (o toque) relativa al contenedor.
- * Esto es crucial para que funcione sin importar dónde esté el contenedor
- * en la página.
- */
 function hideRevealer() {
   const hiddenMaskValue = `radial-gradient(circle 50px at -100px -100px, black 100%, transparent 100%)`;
   revealer.style.setProperty("-webkit-mask-image", hiddenMaskValue);
@@ -48,7 +42,6 @@ function checkDiscovery(lupaX, lupaY) {
     isFound = true;
     secretSpot.setAttribute("data-found", "true");
     successMessage.classList.add("visible");
-
     revealer.style.pointerEvents = "none";
   }
 }
@@ -69,3 +62,70 @@ container.addEventListener("touchstart", updateRevealer, { passive: false });
 container.addEventListener("touchend", hideRevealer);
 container.addEventListener("touchcancel", hideRevealer);
 hideRevealer();
+//FUNCIONAL BY REVEALER
+document.addEventListener("DOMContentLoaded", () => {
+  const canvas = document.getElementById("filter");
+  const container = canvas.parentElement;
+  const ctx = canvas.getContext("2d");
+  const filterColor = "#C0C0C0";
+
+  canvas.width = container.offsetWidth;
+  canvas.height = container.offsetHeight;
+
+  function drawFilter() {
+    ctx.fillStyle = filterColor;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+  drawFilter();
+  function lensRevealer(x, y) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawFilter();
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.beginPath();
+    ctx.arc(x, y, 20, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalCompositeOperation = "source-over";
+  }
+  function getTouchCoords(event) {
+    const rect = canvas.getBoundingClientRect();
+    const touch = event.touches[0];
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
+    return { x, y };
+  }
+
+  let isMouseDown = false;
+  canvas.addEventListener("mousedown", (event) => {
+    isMouseDown = true;
+    lensRevealer(event.offsetX, event.offsetY);
+  });
+  canvas.addEventListener("mousemove", (event) => {
+    if (isMouseDown) {
+      lensRevealer(event.offsetX, event.offsetY);
+    }
+  });
+  canvas.addEventListener("mouseup", () => {
+    isMouseDown = false;
+  });
+  canvas.addEventListener("mouseleave", () => {
+    isMouseDown = false;
+  });
+  canvas.addEventListener("touchstart", (event) => {
+    event.preventDefault(); // Evita el scroll/zoom del navegador
+    isTouching = true;
+    const coords = getTouchCoords(event);
+    lensRevealer(coords.x, coords.y);
+  });
+  canvas.addEventListener("touchmove", (event) => {
+    if (!isTouching) return;
+    event.preventDefault();
+    const coords = getTouchCoords(event);
+    lensRevealer(coords.x, coords.y);
+  });
+  canvas.addEventListener("touchend", () => {
+    isTouching = false;
+  });
+  canvas.addEventListener("touchcancel", () => {
+    isTouching = false;
+  });
+});
