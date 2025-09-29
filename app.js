@@ -10,6 +10,12 @@ let isFound = false;
  * Esto es crucial para que funcione sin importar dónde esté el contenedor
  * en la página.
  */
+function hideRevealer() {
+  const hiddenMaskValue = `radial-gradient(circle 50px at -100px -100px, black 100%, transparent 100%)`;
+  revealer.style.setProperty("-webkit-mask-image", hiddenMaskValue);
+  revealer.style.setProperty("mask-image", hiddenMaskValue);
+}
+
 function getCoords(e) {
   const rect = container.getBoundingClientRect();
   let clientX, clientY;
@@ -57,5 +63,9 @@ function updateRevealer(e) {
 }
 container.addEventListener("mousemove", updateRevealer);
 container.addEventListener("mouseenter", updateRevealer);
+container.addEventListener("mouseleave", hideRevealer);
 container.addEventListener("touchmove", updateRevealer, { passive: false });
 container.addEventListener("touchstart", updateRevealer, { passive: false });
+container.addEventListener("touchend", hideRevealer);
+container.addEventListener("touchcancel", hideRevealer);
+hideRevealer();
