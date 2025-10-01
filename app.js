@@ -43,13 +43,13 @@ function checkDiscovery(lupaX, lupaY) {
 function updateRevealer(_event) {
   _event.preventDefault();
   const { x, y } = getCoords(_event, container);
-
   revealer.style.top = `${y - RADIUS}px`;
   revealer.style.left = `${x - RADIUS}px`;
   checkDiscovery(x, y);
 }
 container.addEventListener("mousemove", updateRevealer);
 container.addEventListener("mouseenter", updateRevealer);
+
 container.addEventListener("touchmove", updateRevealer, { passive: false });
 container.addEventListener("touchstart", updateRevealer, { passive: false });
 
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   let isMouseDown = false;
-  canvas.addEventListener("mousedown", (event) => {
+  canvas.addEventListener("mouseenter", (event) => {
     isMouseDown = true;
     lensRevealer(event.offsetX, event.offsetY);
   });
