@@ -5,9 +5,9 @@ const successMessage = document.querySelector(".success-message");
 const radius = 50;
 let isFound = false;
 function hideRevealer() {
-  const hiddenMaskValue = `radial-gradient(circle 50px at -100px -100px, black 100%, transparent 100%)`;
-  revealer.style.setProperty("-webkit-mask-image", hiddenMaskValue);
-  revealer.style.setProperty("mask-image", hiddenMaskValue);
+  //   const hiddenMaskValue = `radial-gradient(circle 50px at -100px -100px, black 100%, transparent 100%)`;
+  //   revealer.style.setProperty("-webkit-mask-image", hiddenMaskValue);
+  //   revealer.style.setProperty("mask-image", hiddenMaskValue);
 }
 
 function getCoords(e) {
@@ -42,26 +42,26 @@ function checkDiscovery(lupaX, lupaY) {
     isFound = true;
     secretSpot.setAttribute("data-found", "true");
     successMessage.classList.add("visible");
-    revealer.style.pointerEvents = "none";
+    // revealer.style.pointerEvents = "none";
   }
 }
 
 function updateRevealer(e) {
   e.preventDefault();
   const { x, y } = getCoords(e);
-  const maskValue = `radial-gradient(circle ${radius}px at ${x}px ${y}px, black 100%, transparent 100%)`;
-  revealer.style.setProperty("-webkit-mask-image", maskValue);
-  revealer.style.setProperty("mask-image", maskValue);
+  //   const maskValue = `radial-gradient(circle ${radius}px at ${x}px ${y}px, black 100%, transparent 100%)`;
+  //   revealer.style.setProperty("-webkit-mask-image", maskValue);
+  //   revealer.style.setProperty("mask-image", maskValue);
   checkDiscovery(x, y);
 }
 container.addEventListener("mousemove", updateRevealer);
 container.addEventListener("mouseenter", updateRevealer);
-container.addEventListener("mouseleave", hideRevealer);
+// container.addEventListener("mouseleave", hideRevealer);
 container.addEventListener("touchmove", updateRevealer, { passive: false });
 container.addEventListener("touchstart", updateRevealer, { passive: false });
-container.addEventListener("touchend", hideRevealer);
-container.addEventListener("touchcancel", hideRevealer);
-hideRevealer();
+// container.addEventListener("touchend", hideRevealer);
+// container.addEventListener("touchcancel", hideRevealer);
+// hideRevealer();
 //FUNCIONAL BY REVEALER
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("filter");
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     drawFilter();
     ctx.globalCompositeOperation = "destination-out";
     ctx.beginPath();
-    ctx.arc(x, y, 20, 0, Math.PI * 2);
+    ctx.arc(x, y, 50, 0, Math.PI * 2);
     ctx.fill();
     ctx.globalCompositeOperation = "source-over";
   }
