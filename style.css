@@ -38,6 +38,16 @@ body {
     border: 5px dashed white;
     background: transparent;
     border-radius: 50%;
+    animation: changeBorder 5s ease 0s infinite alternate forwards;
+}
+
+@keyframes changeBorder {
+    from {
+        transform: rotateZ(0turn);
+    }
+    to {
+        transform: rotateZ(0.5turn);
+    }
 }
 
 .secret-spot {
